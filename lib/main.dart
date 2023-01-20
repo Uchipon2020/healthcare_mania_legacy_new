@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.amber
         ),
-        home: ModelListScreen(),
-        localizationsDelegates:[
+        home: const ModelListScreen(),
+        localizationsDelegates:const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ]
