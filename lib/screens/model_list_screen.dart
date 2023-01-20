@@ -128,7 +128,7 @@ class ModelListScreenState extends State<ModelListScreen> {
     final Future<Database> dbFuture = databaseHelper.initializeDatabase();
     dbFuture.then(
             (database) {
-          Future<List<Model>> noteListFuture = databaseHelper.getNoteList();
+          Future<List<Model>> noteListFuture = databaseHelper.getModelList();
           noteListFuture.then((modelList) {
             setState(() {
               this.noteList = modelList;
