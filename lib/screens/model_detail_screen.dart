@@ -964,7 +964,7 @@ class ModelDetailScreenState extends State<ModelDetailScreen> {
     int result;
     if (note.id != null) {
       // Case 1: Update operation
-      result = await helper.updateNote(note);
+      result = await helper.updateModel(note);
     } else {
       // Case 2: Insert Operation
       result = await helper.insertNote(note);
@@ -988,7 +988,7 @@ class ModelDetailScreenState extends State<ModelDetailScreen> {
     }
 
     // Case 2: User is trying to delete the old note that already has a valid ID.
-    int result = await helper.deleteNote(note.id);
+    int result = await helper.deleteModel(note.id);
     if (result != 0) {
       _showAlertDialog('状況', 'データ削除完了');
     } else {

@@ -1,5 +1,4 @@
 class Model {
-//OK
   int _id;
   String _date; //更新日
   int _priority; //定期・ドッグフラグ
@@ -121,27 +120,28 @@ class Model {
   String get sugar_26 => _26_sugar;
   int get priority => _priority;
   String get date => _date;
+
   set height_1(String newHeight) {
     if (newHeight.length <= 255) {
-      this._1_height = newHeight;
+      _1_height = newHeight;
     }
   }
 
   set weight_2(String newWeight) {
     if (newWeight.length <= 255) {
-      this._2_weight = newWeight;
+      _2_weight = newWeight;
     }
   }
 
   set waist_3(String newWaist) {
     if (newWaist.length <= 255) {
-      this._3_waist = newWaist;
+      _3_waist = newWaist;
     }
   }
 
   set right_eye_4(String newREye) {
     if (newREye.length <= 255) {
-      this._4_right_eye = newREye;
+      _4_right_eye = newREye;
     }
   }
 
@@ -153,31 +153,31 @@ class Model {
 
   set hearing_right_1000_6(String newHearingRight1000) {
     if (newHearingRight1000.length <= 255) {
-      this._6_hearing_right_1000 = newHearingRight1000;
+      _6_hearing_right_1000 = newHearingRight1000;
     }
   }
 
   set hearing_left_1000_7(String newHearingLeft1000) {
     if (newHearingLeft1000.length <= 255) {
-      this._7_hearing_left_1000 = newHearingLeft1000;
+      _7_hearing_left_1000 = newHearingLeft1000;
     }
   }
 
   set hearing_right_4000_8(String newHearingRight4000) {
     if (newHearingRight4000.length <= 255) {
-      this._8_hearing_right_4000 = newHearingRight4000;
+      _8_hearing_right_4000 = newHearingRight4000;
     }
   }
 
   set hearing_left_4000_9(String newHearingLeft4000) {
     if (newHearingLeft4000.length <= 255) {
-      this._9_hearing_left_4000 = newHearingLeft4000;
+      _9_hearing_left_4000 = newHearingLeft4000;
     }
   }
 
   set x_ray_10(String newXRay) {
     if (newXRay.length <= 255) {
-      this._10_x_ray = newXRay;
+      _10_x_ray = newXRay;
     }
   }
 
@@ -189,102 +189,102 @@ class Model {
 
   set high_blood_pressure_12(String newHBP) {
     if (newHBP.length <= 255) {
-      this._12_high_blood_pressure = newHBP;
+      _12_high_blood_pressure = newHBP;
     }
   }
 
   set red_blood_13(String newRedBlood) {
     if (newRedBlood.length <= 255) {
-      this._13_red_blood = newRedBlood;
+      _13_red_blood = newRedBlood;
     }
   }
 
   set hemoglobin_14(String newHemoglobin) {
     if (newHemoglobin.length <= 255) {
-      this._14_hemoglobin = newHemoglobin;
+      _14_hemoglobin = newHemoglobin;
     }
   }
 
   set got_15(String newGot) {
     if (newGot.length <= 255) {
-      this._15_got = newGot;
+      _15_got = newGot;
     }
   }
 
   set gpt_16(String newGpt) {
     if (newGpt.length <= 255) {
-      this._16_gpt = newGpt;
+      _16_gpt = newGpt;
     }
   }
 
   set gtp_17(String newGtp) {
     if (newGtp.length <= 255) {
-      this._17_gtp = newGtp;
+      _17_gtp = newGtp;
     }
   }
 
   set ldl_18(String newLdl) {
     if (newLdl.length <= 255) {
-      this._18_ldl = newLdl;
+      _18_ldl = newLdl;
     }
   }
 
   set hdl_19(String newHdl) {
     if (newHdl.length <= 255) {
-      this._19_hdl = newHdl;
+      _19_hdl = newHdl;
     }
   }
 
   set neutral_fat_20(String newNeutralFat) {
     if (newNeutralFat.length <= 255) {
-      this._20_neutral_fat = newNeutralFat;
+      _20_neutral_fat = newNeutralFat;
     }
   }
 
   set blood_glucose_21(String newBloodGlucose) {
     if (newBloodGlucose.length <= 255) {
-      this._21_blood_glucose = newBloodGlucose;
+      _21_blood_glucose = newBloodGlucose;
     }
   }
 
   set hA1c_22(String newHA1c) {
     if (newHA1c.length <= 255) {
-      this._22_hA1c = newHA1c;
+      _22_hA1c = newHA1c;
     }
   }
 
   set ecg_23(String newEcg) {
     if (newEcg.length <= 255) {
-      this._23_ecg = newEcg;
+      _23_ecg = newEcg;
     }
   }
 
   set on_the_day_24(String newOTD) {
     if (newOTD.length <= 255) {
-      this._24_on_the_day = newOTD;
+      _24_on_the_day = newOTD;
     }
   }
 
   set urine_25(String newUrine) {
     if (newUrine.length <= 255) {
-      this._25_urine = newUrine;
+      _25_urine = newUrine;
     }
   }
 
   set sugar_26(String newSugar) {
     if (newSugar.length <= 255) {
-      this._26_sugar = newSugar;
+      _26_sugar = newSugar;
     }
   }
 
   set priority(int newPriority) {
     if (newPriority >= 1 && newPriority <= 3) {
-      this._priority = newPriority;
+      _priority = newPriority;
     }
   }
 
   set date(String newDate) {
-    this._date = newDate;
+    _date = newDate;
   }
 
   // Convert a Note object into a Map object
