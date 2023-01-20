@@ -31,7 +31,7 @@ class ModelListScreenState extends State<ModelListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('MY HEALTHCARE DATA'),
+        title: const Text('MY HEALTHCARE DATA'),
       ),
       body: getNoteListView(),
       floatingActionButton: FloatingActionButton(
@@ -40,7 +40,7 @@ class ModelListScreenState extends State<ModelListScreen> {
           navigateToDetail(Model(1, ''), '新規登録');
         },
         tooltip: '新規登録',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -113,10 +113,10 @@ class ModelListScreenState extends State<ModelListScreen> {
     }
   }
 
-  void navigateToDetail(Model note, String height) async {
+  void navigateToDetail(Model models, String appBarTitle) async {
     bool result =
     await Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return ModelDetailScreen(note, height);
+      return ModelDetailScreen( model: models , appBarTitle: appBarTitle,);
     }));
 
     if (result == true) {
@@ -129,10 +129,10 @@ class ModelListScreenState extends State<ModelListScreen> {
     dbFuture.then(
             (database) {
           Future<List<Model>> noteListFuture = databaseHelper.getNoteList();
-          noteListFuture.then((noteList) {
+          noteListFuture.then((modelList) {
             setState(() {
-              this.noteList = noteList;
-              count = noteList.length;
+              this.noteList = modelList;
+              count = modelList.length;
             });
           });
         });

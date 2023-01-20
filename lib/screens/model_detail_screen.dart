@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:healthcare_mania_legacy_new/models/model.dart';
 import 'package:healthcare_mania_legacy_new/utils/database_helper.dart';
@@ -5,17 +6,14 @@ import 'package:intl/intl.dart';
 
 class ModelDetailScreen extends StatefulWidget {
   final String appBarTitle;
-  final Model note;
-
-  const ModelDetailScreen(this.note, this.appBarTitle);
+  final Model model;
+  const ModelDetailScreen({Key key, this.appBarTitle, this.model}) : super(key:key);
 
   @override
-  State<StatefulWidget> createState() {
-    return ModelDetailScreenState(note, appBarTitle);
-  }
+  State<ModelDetailScreen> createState() => _ModelDetailScreenState();
 }
 
-class ModelDetailScreenState extends State<ModelDetailScreen> {
+class _ModelDetailScreenState extends State<ModelDetailScreen> {
   static final _priorities = ['定期健康診断', '人間ドック', '独自検査'];
 
   DatabaseHelper helper = DatabaseHelper();
@@ -56,8 +54,6 @@ class ModelDetailScreenState extends State<ModelDetailScreen> {
   TextEditingController hA1cController = TextEditingController();
   TextEditingController eCgController = TextEditingController();
 
-  ModelDetailScreenState(this.note, this.appBarTitle);
-
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
@@ -88,7 +84,9 @@ class ModelDetailScreenState extends State<ModelDetailScreen> {
     if (onTheDayController.text == null) {
       onTheDayController.text =
           DateFormat("yyyy年MM月dd日").format(dateFormat);
-      print('$dateFormat');
+      if (kDebugMode) {
+        print('$dateFormat');
+      }
     }
 
     return Listener(
@@ -104,7 +102,7 @@ class ModelDetailScreenState extends State<ModelDetailScreen> {
           appBar: AppBar(
             title: Text(appBarTitle),
             leading: IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   // Write some code to control things, when user press back button in AppBar
                   moveToLastScreen();
@@ -341,7 +339,7 @@ class ModelDetailScreenState extends State<ModelDetailScreen> {
 
                           decoration: InputDecoration(
                             labelText: '右聴力4000',
-                            icon: Icon(Icons.hearing),
+                            icon: const Icon(Icons.hearing),
                             labelStyle: textStyle,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
@@ -396,7 +394,7 @@ class ModelDetailScreenState extends State<ModelDetailScreen> {
                               labelText: '血圧Low',
                               labelStyle: textStyle,
                               suffix: const Text(' mmHg'),
-                              icon: Icon(Icons.arrow_downward),
+                              icon: const Icon(Icons.arrow_downward),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0))),
                         ),
@@ -450,7 +448,7 @@ class ModelDetailScreenState extends State<ModelDetailScreen> {
                 ),
                 // 心電図検査
                 Padding(
-                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                   child: TextField(
                     controller: eCgController,
                     style: textStyle,
@@ -580,7 +578,7 @@ class ModelDetailScreenState extends State<ModelDetailScreen> {
                                 decoration: InputDecoration(
                                     labelText: 'ＧＰＴ',
                                     labelStyle: textStyle,
-                                    suffix: Text(' U/L'),
+                                    suffix: const Text(' U/L'),
                                     border: OutlineInputBorder(
                                         borderRadius:
                                         BorderRadius.circular(5.0))),
@@ -933,8 +931,12 @@ class ModelDetailScreenState extends State<ModelDetailScreen> {
   // Update the on_the_day of Note object
   void updateOTD() {
     note.on_the_day_24 = onTheDayController.text;
-    print(onTheDayController.text + 'アップデートメソッドの中のテキスト');
-    print(note.on_the_day_24);
+    if (kDebugMode) {
+      print('${onTheDayController.text}アップデートメソッドの中のテキスト');
+    }
+    if (kDebugMode) {
+      print(note.on_the_day_24);
+    }
   }
 
   Future<void> _selectDate(BuildContext context) async {
