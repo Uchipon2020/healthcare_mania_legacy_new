@@ -4,16 +4,16 @@ import 'package:healthcare_mania_legacy_new/models/model.dart';
 import 'package:healthcare_mania_legacy_new/utils/database_helper.dart';
 import 'package:intl/intl.dart';
 
-class ModelDetailScreen extends StatefulWidget {
+class ModelViewScreen extends StatefulWidget {
   final String appBarTitle;
   final Model model;
-  const ModelDetailScreen({Key key, this.appBarTitle, this.model}) : super(key:key);
+  const ModelViewScreen({Key key, this.appBarTitle, this.model}) : super(key:key);
 
   @override
-  State<ModelDetailScreen> createState() => _ModelDetailScreenState();
+  State<ModelViewScreen> createState() => _ModelViewScreenState();
 }
 
-class _ModelDetailScreenState extends State<ModelDetailScreen> {
+class _ModelViewScreenState extends State<ModelViewScreen> {
   static final _priorities = ['定期健康診断', '人間ドック', '独自検査'];
 
   DatabaseHelper helper = DatabaseHelper();
@@ -130,13 +130,8 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                         );
                       }).toList(),
                       style: textStyle,
-                      value: getPriorityAsString(widget.model.priority),
-                      onChanged: (valueSelectedByUser) {
-                        setState(() {
-                          debugPrint('User selected $valueSelectedByUser');
-                          updatePriorityAsInt(valueSelectedByUser);
-                        });
-                      }),
+                      value: getPriorityAsString(widget.model.priority), onChanged: (String value) {  },
+                  ),
                 ),
                 // 24 Element　受診日
                 Padding(
@@ -146,17 +141,7 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                     controller: onTheDayController,
                     style: textStyle,
                     textAlign: TextAlign.right,
-                    onTap: () {
-                      _selectDate(context);
-                      debugPrint('オンタップでカレンダーが表示されているはず');
-                      onTheDayController.text = dateNow;
-                    },
-
-                    onChanged: (value) {
-                      setState(() {
-                        onTheDayController.text = dateNow;
-                      });
-                    },
+                    enabled: false,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       labelText: '受診日',
@@ -177,11 +162,8 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                     style: textStyle,
                     textAlign: TextAlign.right,
                     keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      debugPrint('Something changed in Title Text Field');
-                      updateHeight();
-                    },
-                    decoration: InputDecoration(
+                    enabled: false,
+                                     decoration: InputDecoration(
                         labelText: '身長',
                         labelStyle: textStyle,
                         suffix: const Text(' cm'),
@@ -198,11 +180,8 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                     controller: weightController,
                     style: textStyle,
                     textAlign: TextAlign.right,
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      debugPrint('Something changed in Description Text Field');
-                      updateWeight();
-                    },
+                    enabled: false,
+
                     decoration: InputDecoration(
                         labelText: '体重',
                         labelStyle: textStyle,
@@ -223,12 +202,8 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                         child: TextField(
                           controller: rEyeController,
                           style: textStyle,
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) {
-                            debugPrint(
-                                'Something changed in Description Text Field');
-                            updateREye();
-                          },
+                          enabled: false,
+
                           decoration: InputDecoration(
                             labelText: '右視力',
                             icon: const Icon(Icons.remove_red_eye),
@@ -246,12 +221,8 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                         child: TextField(
                           controller: lEyeController,
                           style: textStyle,
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) {
-                            debugPrint(
-                                'Something changed in Description Text Field');
-                            updateLEye();
-                          },
+                          enabled: false,
+
                           decoration: InputDecoration(
                             labelText: '左視力',
                             icon: const Icon(Icons.remove_red_eye),
@@ -276,12 +247,7 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                         child: TextField(
                           controller: hR1000Controller,
                           style: textStyle,
-                          //keyboardType:TextInputType.number,
-                          onChanged: (value) {
-                            debugPrint(
-                                'Something changed in Description Text Field');
-                            updateHearing_r_1000();
-                          },
+                          enabled: false,
 
                           decoration: InputDecoration(
                             labelText: '右聴力1000',
@@ -300,12 +266,8 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                         child: TextField(
                           controller: hL1000Controller,
                           style: textStyle,
-                          // keyboardType:TextInputType.number,
-                          onChanged: (value) {
-                            debugPrint(
-                                'Something changed in Description Text Field');
-                            updateHearing_l_1000();
-                          },
+                          enabled: false,
+
                           decoration: InputDecoration(
                             labelText: '左聴力1000',
                             labelStyle: textStyle,
@@ -330,12 +292,7 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                         child: TextField(
                           controller: hR4000Controller,
                           style: textStyle,
-                          //keyboardType:TextInputType.number,
-                          onChanged: (value) {
-                            debugPrint(
-                                'Something changed in Description Text Field');
-                            updateHearing_r_4000();
-                          },
+                          enabled: false,
 
                           decoration: InputDecoration(
                             labelText: '右聴力4000',
@@ -354,12 +311,8 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                         child: TextField(
                           controller: hL4000Controller,
                           style: textStyle,
-                          //keyboardType:TextInputType.number,
-                          onChanged: (value) {
-                            debugPrint(
-                                'Something changed in Description Text Field');
-                            updateHearing_l_4000();
-                          },
+                          enabled: false,
+
                           decoration: InputDecoration(
                             labelText: '左聴力4000',
                             labelStyle: textStyle,
@@ -383,16 +336,13 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                         child: TextField(
                           controller: lBpController,
                           style: textStyle,
+                          enabled: false,
                           textAlign: TextAlign.right,
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) {
-                            debugPrint(
-                                'Something changed in Description Text Field');
-                            updateLBp();
-                          },
+
                           decoration: InputDecoration(
                               labelText: '血圧Low',
                               labelStyle: textStyle,
+                              enabled: false,
                               suffix: const Text(' mmHg'),
                               icon: const Icon(Icons.arrow_downward),
                               border: OutlineInputBorder(
@@ -408,15 +358,11 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                           controller: hBpController,
                           style: textStyle,
                           textAlign: TextAlign.right,
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) {
-                            debugPrint(
-                                'Something changed in Description Text Field');
-                            updateHBp();
-                          },
+                          enabled: false,
                           decoration: InputDecoration(
                               labelText: '血圧High',
                               labelStyle: textStyle,
+                              enabled: false,
                               suffix: const Text(' mmHg'),
                               icon: const Icon(Icons.arrow_upward),
                               border: OutlineInputBorder(
@@ -433,15 +379,13 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                   child: TextField(
                     controller: xRayController,
                     style: textStyle,
-                    //keyboardType:TextInputType.number,
-                    onChanged: (value) {
-                      debugPrint('Something changed in Title Text Field');
-                      updateXray();
-                    },
+                    enabled: false,
+
                     decoration: InputDecoration(
                         labelText: 'レントゲン検査所見',
                         icon: const Icon(Icons.content_paste),
                         labelStyle: textStyle,
+                        enabled: false,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0))),
                   ),
@@ -452,14 +396,11 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                   child: TextField(
                     controller: eCgController,
                     style: textStyle,
-                    //keyboardType:TextInputType.number,
-                    onChanged: (value) {
-                      debugPrint('Something changed in Title Text Field');
-                      updateEcg();
-                    },
+                    enabled: false,
                     decoration: InputDecoration(
                         labelText: '心電図検査所見',
                         labelStyle: textStyle,
+                        enabled: false,
                         icon: const Icon(Icons.accessibility),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0))),
@@ -490,13 +431,9 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                               child: TextField(
                                 controller: rBController,
                                 style: textStyle,
+                                enabled: false,
                                 textAlign: TextAlign.right,
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) {
-                                  debugPrint(
-                                      'Something changed in Description Text Field');
-                                  updateRedblood();
-                                },
+
                                 decoration: InputDecoration(
                                     labelText: '赤血球数',
                                     labelStyle: textStyle,
@@ -514,13 +451,9 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                               child: TextField(
                                 controller: hEmoController,
                                 style: textStyle,
+                                enabled: false,
                                 textAlign: TextAlign.right,
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) {
-                                  debugPrint(
-                                      'Something changed in Description Text Field');
-                                  updateHemo();
-                                },
+
                                 decoration: InputDecoration(
                                     labelText: '血色素量',
                                     labelStyle: textStyle,
@@ -544,13 +477,9 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                               child: TextField(
                                 controller: gOtController,
                                 style: textStyle,
+                                enabled: false,
                                 textAlign: TextAlign.right,
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) {
-                                  debugPrint(
-                                      'Something changed in Description Text Field');
-                                  updateGot();
-                                },
+
                                 decoration: InputDecoration(
                                     labelText: 'ＧＯＴ',
                                     labelStyle: textStyle,
@@ -568,13 +497,9 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                               child: TextField(
                                 controller: gPtController,
                                 style: textStyle,
+                                enabled: false,
                                 textAlign: TextAlign.right,
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) {
-                                  debugPrint(
-                                      'Something changed in Description Text Field');
-                                  updateGpt();
-                                },
+
                                 decoration: InputDecoration(
                                     labelText: 'ＧＰＴ',
                                     labelStyle: textStyle,
@@ -592,13 +517,9 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                               child: TextField(
                                 controller: gTpController,
                                 style: textStyle,
+                                enabled: false,
                                 textAlign: TextAlign.right,
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) {
-                                  debugPrint(
-                                      'Something changed in Description Text Field');
-                                  updateGtp();
-                                },
+
                                 decoration: InputDecoration(
                                     labelText: 'ガンマGPT',
                                     labelStyle: textStyle,
@@ -621,13 +542,9 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                               child: TextField(
                                 controller: lDlController,
                                 style: textStyle,
+                                enabled: false,
                                 textAlign: TextAlign.right,
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) {
-                                  debugPrint(
-                                      'Something changed in Description Text Field');
-                                  updateLdl();
-                                },
+
                                 decoration: InputDecoration(
                                     labelText: 'ＬＤＬ',
                                     labelStyle: textStyle,
@@ -645,13 +562,8 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                               child: TextField(
                                 controller: hDlController,
                                 style: textStyle,
-                                textAlign: TextAlign.right,
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) {
-                                  debugPrint(
-                                      'Something changed in Description Text Field');
-                                  updateHdl();
-                                },
+                                enabled: false,
+
                                 decoration: InputDecoration(
                                     labelText: 'ＨＤＬ',
                                     labelStyle: textStyle,
@@ -669,13 +581,9 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                               child: TextField(
                                 controller: nFatController,
                                 style: textStyle,
+                                enabled: false,
                                 textAlign: TextAlign.right,
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) {
-                                  debugPrint(
-                                      'Something changed in Description Text Field');
-                                  updateNeutralfat();
-                                },
+
                                 decoration: InputDecoration(
                                     labelText: '中性脂肪',
                                     labelStyle: textStyle,
@@ -698,13 +606,9 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                               child: TextField(
                                 controller: bGluController,
                                 style: textStyle,
+                                enabled: false,
                                 textAlign: TextAlign.right,
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) {
-                                  debugPrint(
-                                      'Something changed in Description Text Field');
-                                  updateBloodglucose();
-                                },
+
                                 decoration: InputDecoration(
                                   labelText: '空腹時血糖',
                                   labelStyle: textStyle,
@@ -722,13 +626,9 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                               child: TextField(
                                 controller: hA1cController,
                                 style: textStyle,
+                                enabled: false,
                                 textAlign: TextAlign.right,
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) {
-                                  debugPrint(
-                                      'Something changed in Description Text Field');
-                                  updateHA1c();
-                                },
+
                                 decoration: InputDecoration(
                                   labelText: 'hA1c',
                                   labelStyle: textStyle,
@@ -744,56 +644,7 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                     ],
                   ),
                 ),
-
-                /* 5 Element　保存と削除　横並び表示
-               ---------------------------------------------- */
-                Padding(
-                  padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        // ignore: deprecated_member_use
-                        child: ElevatedButton(
-                          /* color: Theme.of(context).primaryColorDark,
-                          textColor: Theme.of(context).primaryColorLight,*/
-                          child: const Text(
-                            'Save',
-                            textScaleFactor: 1.5,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              debugPrint("Save button clicked");
-                              _save();
-                            });
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 5.0,
-                      ),
-                      Expanded(
-                        // ignore: deprecated_member_use
-                        child: ElevatedButton(
-                          style: const ButtonStyle(
-                            /* color: Theme.of(context).primaryColorDark,
-                            textColor: Theme.of(context).primaryColorLight,*/
-                          ),
-                          child: const Text(
-                            'Delete',
-                            textScaleFactor: 1.5,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              debugPrint("Delete button clicked");
-                              _delete();
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                              ],
             ),
           ),
         ));
@@ -938,75 +789,7 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
       print(widget.model.on_the_day_24);
     }
   }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime selected = await showDatePicker(
-        locale: const Locale("ja"),
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(1970),
-        lastDate: DateTime.now().add(const Duration(days: 720)));
-    if (selected != null) {
-      setState(
-            () => dateNow = DateFormat("yyyy年MM月dd日").format(selected).toString(),
-      );
-      debugPrint('$dateNow');
-      //note.on_the_day = onTheDayController.text;
-      onTheDayController.text = dateNow;
-      updateOTD();
-    }
-  }
-
-  // Save data to database
-  void _save() async {
-    moveToLastScreen();
-
-    widget.model.date = DateFormat.yMMMd().format(DateTime.now());
-    debugPrint(widget.model.on_the_day_24);
-    int result;
-    if (widget.model.id != null) {
-      // Case 1: Update operation
-      result = await helper.updateModel(widget.model);
-    } else {
-      // Case 2: Insert Operation
-      result = await helper.insertModel(widget.model);
-    }
-
-    if (result != 0) {
-      // Success
-      _showAlertDialog('状況', '保存完了！！');
-    } else {
-      // Failure
-      _showAlertDialog('状況', '問題発生・保存されませんでした');
-    }
-  }
-
-  void _delete() async {
-    // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
-    // the detail page by pressing the FAB of NoteList page.
-    if (widget.model.id == null) {
-      _showAlertDialog('状況', '削除データなし');
-      return;
-    }
-
-    // Case 2: User is trying to delete the old note that already has a valid ID.
-    int result = await helper.deleteModel(widget.model.id);
-    if (result != 0) {
-      _showAlertDialog('状況', 'データ削除完了');
-    } else {
-      _showAlertDialog('状況', '問題発生・データ削除不可');
-    }
-  }
-
-  void _showAlertDialog(String title, String message) {
-    AlertDialog alertDialog = AlertDialog(
-      title: Text(title),
-      content: Text(message),
-    );
-    showDialog(context: context, builder: (_) => alertDialog);
-  }
 }
-
 class AlwaysDisabledFocusNode extends FocusNode {
   @override
   bool get hasFocus => false;

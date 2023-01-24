@@ -101,7 +101,7 @@ class DatabaseHelper {
   }
 
   // Insert Operation: Insert a Note object to database
-  Future<int> insertNote(Model models) async {
+  Future<int> insertModel(Model models) async {
     Database db = await database;
     var result = await db.insert(noteTable, models.toMap());
     return result;
