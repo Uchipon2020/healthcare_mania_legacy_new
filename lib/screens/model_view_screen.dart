@@ -17,9 +17,6 @@ class _ModelViewScreenState extends State<ModelViewScreen> {
   static final _priorities = ['定期健康診断', '人間ドック', '独自検査'];
 
   DatabaseHelper helper = DatabaseHelper();
-
-  String appBarTitle;
-  Model model;
   dynamic dateNow;
   dynamic dateFormat;
 
@@ -100,7 +97,7 @@ class _ModelViewScreenState extends State<ModelViewScreen> {
 
         child: Scaffold(
           appBar: AppBar(
-            title: Text(appBarTitle),
+            title: Text(widget.appBarTitle),
             leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
@@ -684,7 +681,7 @@ class _ModelViewScreenState extends State<ModelViewScreen> {
     }
     return priority;
   }
-
+/*
   // Update the title of Note object
   void updateHeight() {
     widget.model.height_1 = heightController.text;
@@ -788,8 +785,9 @@ class _ModelViewScreenState extends State<ModelViewScreen> {
     if (kDebugMode) {
       print(widget.model.on_the_day_24);
     }
-  }
+  }*/
 }
+
 class AlwaysDisabledFocusNode extends FocusNode {
   @override
   bool get hasFocus => false;

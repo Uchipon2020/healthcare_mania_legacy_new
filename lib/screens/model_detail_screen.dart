@@ -18,8 +18,6 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
 
   DatabaseHelper helper = DatabaseHelper();
 
-  String appBarTitle;
-  Model model;
   dynamic dateNow;
   dynamic dateFormat;
 
@@ -100,7 +98,7 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
 
         child: Scaffold(
           appBar: AppBar(
-            title: Text(appBarTitle),
+            title: Text(widget.appBarTitle),
             leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
