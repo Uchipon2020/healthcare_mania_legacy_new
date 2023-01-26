@@ -18,6 +18,8 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
 
   DatabaseHelper helper = DatabaseHelper();
 
+  String appBarTitle;
+  Model note;
   dynamic dateNow;
   dynamic dateFormat;
 
@@ -56,29 +58,29 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
 
-    heightController.text = widget.model.height_1;
-    weightController.text = widget.model.weight_2;
-    rEyeController.text = widget.model.right_eye_4;
-    lEyeController.text = widget.model.left_eye_5;
-    lBpController.text = widget.model.low_blood_pressure_11;
-    hBpController.text = widget.model.high_blood_pressure_12;
-    onTheDayController.text = widget.model.on_the_day_24;
-    hR1000Controller.text = widget.model.hearing_right_1000_6;
-    hL1000Controller.text = widget.model.hearing_left_1000_7;
-    hR4000Controller.text = widget.model.hearing_right_4000_8;
-    hL4000Controller.text = widget.model.hearing_left_4000_9;
-    xRayController.text = widget.model.x_ray_10;
-    rBController.text = widget.model.red_blood_13;
-    hEmoController.text = widget.model.hemoglobin_14;
-    gOtController.text = widget.model.got_15;
-    gPtController.text = widget.model.gpt_16;
-    gTpController.text = widget.model.gpt_16;
-    lDlController.text = widget.model.ldl_18;
-    hDlController.text = widget.model.hdl_19;
-    nFatController.text = widget.model.neutral_fat_20;
-    bGluController.text = widget.model.blood_glucose_21;
-    hA1cController.text = widget.model.hA1c_22;
-    eCgController.text = widget.model.ecg_23;
+    heightController.text = note.height_1;
+    weightController.text = note.weight_2;
+    rEyeController.text = note.right_eye_4;
+    lEyeController.text = note.left_eye_5;
+    lBpController.text = note.low_blood_pressure_11;
+    hBpController.text = note.high_blood_pressure_12;
+    onTheDayController.text = note.on_the_day_24;
+    hR1000Controller.text = note.hearing_right_1000_6;
+    hL1000Controller.text = note.hearing_left_1000_7;
+    hR4000Controller.text = note.hearing_right_4000_8;
+    hL4000Controller.text = note.hearing_left_4000_9;
+    xRayController.text = note.x_ray_10;
+    rBController.text = note.red_blood_13;
+    hEmoController.text = note.hemoglobin_14;
+    gOtController.text = note.got_15;
+    gPtController.text = note.gpt_16;
+    gTpController.text = note.gpt_16;
+    lDlController.text = note.ldl_18;
+    hDlController.text = note.hdl_19;
+    nFatController.text = note.neutral_fat_20;
+    bGluController.text = note.blood_glucose_21;
+    hA1cController.text = note.hA1c_22;
+    eCgController.text = note.ecg_23;
     if (onTheDayController.text == null) {
       onTheDayController.text =
           DateFormat("yyyy年MM月dd日").format(dateFormat);
@@ -98,7 +100,7 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
 
         child: Scaffold(
           appBar: AppBar(
-            title: Text(widget.appBarTitle),
+            title: Text(appBarTitle),
             leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
@@ -128,7 +130,7 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
                         );
                       }).toList(),
                       style: textStyle,
-                      value: getPriorityAsString(widget.model.priority),
+                      value: getPriorityAsString(note.priority),
                       onChanged: (valueSelectedByUser) {
                         setState(() {
                           debugPrint('User selected $valueSelectedByUser');
@@ -805,13 +807,13 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
   void updatePriorityAsInt(String value) {
     switch (value) {
       case '定期健康診断':
-        widget.model.priority = 1;
+        note.priority = 1;
         break;
       case '人間ドック':
-        widget.model.priority = 2;
+        note.priority = 2;
         break;
       case '独自検査':
-        widget.model.priority = 3;
+        note.priority = 3;
         break;
     }
   }
@@ -834,106 +836,106 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
 
   // Update the title of Note object
   void updateHeight() {
-    widget.model.height_1 = heightController.text;
+    note.height_1 = heightController.text;
   }
 
   // Update the title of Note object
   void updateWeight() {
-    widget.model.weight_2 = weightController.text;
+    note.weight_2 = weightController.text;
   }
 
   // Update the right_eyes of Note object
   void updateREye() {
-    widget.model.right_eye_4 = rEyeController.text;
+    note.right_eye_4 = rEyeController.text;
   }
 
   // Update the left_eyes of Note object
   void updateLEye() {
-    widget.model.left_eye_5 = lEyeController.text;
+    note.left_eye_5 = lEyeController.text;
   }
 
   void updateHearing_r_1000() {
-    widget.model.hearing_right_1000_6 = hR1000Controller.text;
+    note.hearing_right_1000_6 = hR1000Controller.text;
   }
 
   void updateHearing_l_1000() {
-    widget.model.hearing_left_1000_7 = hL1000Controller.text;
+    note.hearing_left_1000_7 = hL1000Controller.text;
   }
 
   void updateHearing_r_4000() {
-    widget.model.hearing_right_4000_8 = hR4000Controller.text;
+    note.hearing_right_4000_8 = hR4000Controller.text;
   }
 
   void updateHearing_l_4000() {
-    widget.model.hearing_left_4000_9 = hL4000Controller.text;
+    note.hearing_left_4000_9 = hL4000Controller.text;
   }
 
   void updateXray() {
-    widget.model.x_ray_10 = xRayController.text;
+    note.x_ray_10 = xRayController.text;
   }
 
   void updateRedblood() {
-    widget.model.red_blood_13 = rBController.text;
+    note.red_blood_13 = rBController.text;
   }
 
   void updateHemo() {
-    widget.model.hemoglobin_14 = hEmoController.text;
+    note.hemoglobin_14 = hEmoController.text;
   }
 
   void updateGot() {
-    widget.model.got_15 = gOtController.text;
+    note.got_15 = gOtController.text;
   }
 
   void updateGpt() {
-    widget.model.gpt_16 = gPtController.text;
+    note.gpt_16 = gPtController.text;
   }
 
   void updateGtp() {
-    widget.model.gtp_17 = gTpController.text;
+    note.gtp_17 = gTpController.text;
   }
 
   void updateLdl() {
-    widget.model.ldl_18 = lDlController.text;
+    note.ldl_18 = lDlController.text;
   }
 
   void updateHdl() {
-    widget.model.hdl_19 = hDlController.text;
+    note.hdl_19 = hDlController.text;
   }
 
   void updateNeutralfat() {
-    widget.model.neutral_fat_20 = nFatController.text;
+    note.neutral_fat_20 = nFatController.text;
   }
 
   void updateBloodglucose() {
-    widget.model.blood_glucose_21 = bGluController.text;
+    note.blood_glucose_21 = bGluController.text;
   }
 
   void updateHA1c() {
-    widget.model.hA1c_22 = hA1cController.text;
+    note.hA1c_22 = hA1cController.text;
   }
 
   void updateEcg() {
-    widget.model.ecg_23 = eCgController.text;
+    note.ecg_23 = eCgController.text;
   }
 
   // Update the low_blood_pressure of Note object
   void updateLBp() {
-    widget.model.low_blood_pressure_11 = lBpController.text;
+    note.low_blood_pressure_11 = lBpController.text;
   }
 
   // Update the high_blood_pressure of Note object
   void updateHBp() {
-    widget.model.high_blood_pressure_12 = hBpController.text;
+    note.high_blood_pressure_12 = hBpController.text;
   }
 
   // Update the on_the_day of Note object
   void updateOTD() {
-    widget.model.on_the_day_24 = onTheDayController.text;
+    note.on_the_day_24 = onTheDayController.text;
     if (kDebugMode) {
       print('${onTheDayController.text}アップデートメソッドの中のテキスト');
     }
     if (kDebugMode) {
-      print(widget.model.on_the_day_24);
+      print(note.on_the_day_24);
     }
   }
 
@@ -959,15 +961,15 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
   void _save() async {
     moveToLastScreen();
 
-    widget.model.date = DateFormat.yMMMd().format(DateTime.now());
-    debugPrint(widget.model.on_the_day_24);
+    note.date = DateFormat.yMMMd().format(DateTime.now());
+    debugPrint(note.on_the_day_24);
     int result;
-    if (widget.model.id != null) {
+    if (note.id != null) {
       // Case 1: Update operation
-      result = await helper.updateModel(widget.model);
+      result = await helper.updateModel(note);
     } else {
       // Case 2: Insert Operation
-      result = await helper.insertModel(widget.model);
+      result = await helper.insertNote(note);
     }
 
     if (result != 0) {
@@ -982,13 +984,13 @@ class _ModelDetailScreenState extends State<ModelDetailScreen> {
   void _delete() async {
     // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
     // the detail page by pressing the FAB of NoteList page.
-    if (widget.model.id == null) {
+    if (note.id == null) {
       _showAlertDialog('状況', '削除データなし');
       return;
     }
 
     // Case 2: User is trying to delete the old note that already has a valid ID.
-    int result = await helper.deleteModel(widget.model.id);
+    int result = await helper.deleteModel(note.id);
     if (result != 0) {
       _showAlertDialog('状況', 'データ削除完了');
     } else {
