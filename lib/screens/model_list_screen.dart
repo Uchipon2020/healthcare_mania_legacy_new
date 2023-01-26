@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:healthcare_mania_legacy_new/models/model.dart';
 import 'package:healthcare_mania_legacy_new/screens/model_detail_screen.dart';
+import 'package:healthcare_mania_legacy_new/screens/model_view_screen.dart';
 import 'package:healthcare_mania_legacy_new/utils/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -18,13 +19,13 @@ class ModelListScreen extends StatefulWidget {
 
 class ModelListScreenState extends State<ModelListScreen> {
   DatabaseHelper databaseHelper = DatabaseHelper();
-  List<Model> noteList;
+  List<Model> modelList;
   int count = 0;
 
   @override
   Widget build(BuildContext context) {
-    if (noteList == null) {
-      noteList = <Model>[];
+    if (modelList == null) {
+      modelList = <Model>[];
       debugPrint('初期リセットビルド通過');
       updateListView();
     }
@@ -33,11 +34,11 @@ class ModelListScreenState extends State<ModelListScreen> {
       appBar: AppBar(
         title: const Text('MY HEALTHCARE DATA'),
       ),
-      body: getNoteListView(),
+      body: getModelListView(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           debugPrint('FAB clicked');
-          navigateToDetail(Model(1, ''), '新規登録');
+          navigateToDetail(Model(1,''), '新規登録');
         },
         tooltip: '新規登録',
         child: const Icon(Icons.add),
@@ -45,7 +46,7 @@ class ModelListScreenState extends State<ModelListScreen> {
     );
   }
 
-  ListView getNoteListView() {
+  ListView getModelListView() {
     //TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
 
     return ListView.builder(
@@ -57,18 +58,24 @@ class ModelListScreenState extends State<ModelListScreen> {
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor:
-              getPriorityColor(noteList[position].priority),
-              child: getPriorityIcon(noteList[position].priority),
+              getPriorityColor(modelList[position].priority),
+              child: getPriorityIcon(modelList[position].priority),
             ),
-            title: Text('受診日 : ${noteList[position].on_the_day_24}'),
-            subtitle: Text('更新日${noteList[position].date}'),
+            title: Text('受診日 : ${modelList[position].on_the_day_24}'),
+            subtitle: Text('更新日${modelList[position].date}'),
             trailing: GestureDetector(
-              child: const Icon(Icons.account_balance_wallet_outlined, color: Colors.grey,),
-            ),
+              child: IconButton(
 
+                icon:const Icon(Icons.account_balance_wallet),
+                color: Colors.grey,
+                onPressed: () {
+                navigateToDetail(modelList[position], '訂正');
+              },),
+            ),
             onTap: () {
               debugPrint("ListTile Tapped");
-              navigateToDetail(noteList[position], '参照・訂正');
+            navigateToView(modelList[position], '参照');
+
             },
           ),
         );
@@ -123,16 +130,23 @@ class ModelListScreenState extends State<ModelListScreen> {
       updateListView();
     }
   }
+  void navigateToView(Model models, String appBarTitle) async {
+
+    await Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return ModelViewScreen( model: models , appBarTitle: appBarTitle,);
+    }));
+
+  }
 
   void updateListView() {
     final Future<Database> dbFuture = databaseHelper.initializeDatabase();
     dbFuture.then(
             (database) {
-          Future<List<Model>> noteListFuture = databaseHelper.getModelList();
-          noteListFuture.then((modelList) {
+          Future<List<Model>> noteListFuture = databaseHelper.getNoteList();
+          noteListFuture.then((modelsList) {
             setState(() {
-              this.noteList = modelList;
-              count = modelList.length;
+              this.modelList = modelsList;
+              count = modelsList.length;
             });
           });
         });
