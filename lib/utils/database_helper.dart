@@ -8,7 +8,7 @@ class DatabaseHelper {
   static DatabaseHelper _databaseHelper; // Singleton DatabaseHelper
   static Database _database; // Singleton Database
 
-  String noteTable = 'note_table';
+  String modelTable = 'model_table';
   String colId = 'id';
   String colHeight = 'height';
   String colWeight = 'weight';
@@ -65,18 +65,18 @@ class DatabaseHelper {
   }
 
   Future<Database> initializeDatabase() async {
-    // Get the directory path for both Android and iOS to store database.
+
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = '${directory.path}notes.db';
+    String path = '${directory.path}models.db';
 
     // Open/create the database at a given path
-    var notesDatabase =
+    var modelsDatabase =
     await openDatabase(path, version: 1, onCreate: _createDb);
-    return notesDatabase;
+    return modelsDatabase;
   }
 
   void _createDb(Database db, int newVersion) async {
-    await db.execute('CREATE TABLE $noteTable('
+    await db.execute('CREATE TABLE $modelTable('
         ' $colId INTEGER PRIMARY KEY AUTOINCREMENT, '
         ' $colHeight TEXT, $colWeight TEXT,'
         ' $colR_Eye TEXT, $colL_Eye TEXT,'
@@ -95,7 +95,7 @@ class DatabaseHelper {
     Database db = await database;
 
 //		var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
-    var result = await db.query(noteTable, orderBy: '$colPriority ASC');
+    var result = await db.query(modelTable, orderBy: '$colPriority ASC');
     return result;
 
   }
@@ -103,14 +103,14 @@ class DatabaseHelper {
   // Insert Operation: Insert a Note object to database
   Future<int> insertModel(Model models) async {
     Database db = await database;
-    var result = await db.insert(noteTable, models.toMap());
+    var result = await db.insert(modelTable, models.toMap());
     return result;
   }
 
   // Update Operation: Update a Note object and save it to database
   Future<int> updateModel(Model model) async {
     var db = await database;
-    var result = await db.update(noteTable, model.toMap(),
+    var result = await db.update(modelTable, model.toMap(),
         where: '$colId = ?', whereArgs: [model.id]);
     return result;
   }
@@ -119,7 +119,7 @@ class DatabaseHelper {
   Future<int> deleteModel(int id) async {
     var db = await database;
     int result =
-    await db.rawDelete('DELETE FROM $noteTable WHERE $colId = $id');
+    await db.rawDelete('DELETE FROM $modelTable WHERE $colId = $id');
     return result;
   }
 
@@ -127,13 +127,13 @@ class DatabaseHelper {
   Future<int> getCount() async {
     Database db = await database;
     List<Map<String, dynamic>> x =
-    await db.rawQuery('SELECT COUNT (*) from $noteTable');
+    await db.rawQuery('SELECT COUNT (*) from $modelTable');
     int result = Sqflite.firstIntValue(x);
     return result;
   }
 
   // Get the 'Map List' [ List<Map> ] and convert it to 'Note List' [ List<Note> ]
-  Future<List<Model>> getNoteList() async {
+  Future<List<Model>> getModelList() async {
     var modelMapList = await getModelMapList(); // Get 'Map List' from database
     int count = modelMapList.length; // Count the number of map entries in db table
     // ignore: deprecated_member_use
